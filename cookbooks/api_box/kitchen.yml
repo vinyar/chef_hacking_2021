@@ -15,7 +15,7 @@ driver:
   name: vagrant
   # pre_create_command
   # requite_chef_omnibus: '16.10.17'
-  download_url: 'file:///c://local_binaries/chef-client-16.10.17-1-x64.msi'
+  download_url: 'file://c:/local_binaries/chef-client-16.10.17-1-x64.msi'  # hacking on speeding up chef-client installation by using local file in mounted share
   # chef_omnibus_install_options: -P chef-workstation   # not using
   customize:
     cpus: 4
