@@ -14,17 +14,16 @@
 driver:
   name: vagrant
   # pre_create_command
-  requite_chef_omnibus: '16.10.17'
-  # chef_omnibus_install_options: -P chef-workstation
+  # requite_chef_omnibus: '16.10.17'
+  download_url: 'file:///c://local_binaries/chef-client-16.10.17-1-x64.msi'
+  # chef_omnibus_install_options: -P chef-workstation   # not using
   customize:
-    cpus: 2
+    cpus: 4
     memory: 4096
-    # clipboard: bi-directional
-    # natdnshostresolver1: 'on'
-    # natdnsproxy1: 'on'
-    # gui: true
-
-
+    clipboard: bidirectional
+    # natdnshostresolver1: 'on'  # not needed yet
+    # natdnsproxy1: 'on'         # not needed yet
+    # gui: true                  # not needed yet
 
 transport:
   name: winrm
@@ -33,16 +32,21 @@ transport:
 
 provisioner:
   name: chef_zero
+  # client_rb:                        # ability to add custom values to client.rb
+  #   http_proxy: <%= ENV['http_proxy'] %>
+  #   https_proxy: <%= ENV['http_proxy'] %>
+  #   no_proxy: <%= ENV['no_proxy'] %>
+  #   no_lazy_load: true
 
 platforms:
   - name: windows-2016
   # os_type: windows
     driver_config:
       box: win2016_tas50 ## windows boxes should start with in, for some of the transport magic to just work.
-      # box_url: https://vagrantcloud.com/tas50/boxes/windows_2016/versions/202010.24.0/providers/virtualbox.box
+      box_url: https://vagrantcloud.com/tas50/boxes/windows_2016/versions/202010.24.0/providers/virtualbox.box
       synced_folders:
         - [".", "/vagrant"] #, disabled: true ## https://github.com/test-kitchen/kitchen-vagrant/blob/master/templates/Vagrantfile.erb
-        - ["../../binaries", "/vagrant"] #, disabled: true ## https://github.com/test-kitchen/kitchen-vagrant/blob/master/templates/Vagrantfile.erb
+        - ["../../binaries", "/local_binaries"] #, disabled: true ## https://github.com/test-kitchen/kitchen-vagrant/blob/master/templates/Vagrantfile.erb
       # transport:
       #   name: winrm
       #   elevated: true
