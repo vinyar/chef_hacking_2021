@@ -10,7 +10,7 @@ name 'api_box'
 default_source :supermarket
 
 # run_list: chef-client will run these recipes in the order specified.
-run_list 'api_box::default'
+run_list 'api_box::default', 'api_box::eye_cli'
 
 # Specify a custom source for a single cookbook:
 cookbook 'api_box', path: '.'

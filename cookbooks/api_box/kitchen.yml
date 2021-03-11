@@ -42,6 +42,7 @@ platforms:
       # box_url: https://vagrantcloud.com/tas50/boxes/windows_2016/versions/202010.24.0/providers/virtualbox.box
       synced_folders:
         - [".", "/vagrant"] #, disabled: true ## https://github.com/test-kitchen/kitchen-vagrant/blob/master/templates/Vagrantfile.erb
+        - ["../../binaries", "/vagrant"] #, disabled: true ## https://github.com/test-kitchen/kitchen-vagrant/blob/master/templates/Vagrantfile.erb
       # transport:
       #   name: winrm
       #   elevated: true
@@ -53,8 +54,9 @@ platforms:
 
 suites:
   - name: default
-    run_list:
+    run_list: #uses policyfile
       - recipe[api_box::default]
+      - recipe[api_box::eye_cli]
     # cookbook_path: '/cookbooks'
     # data_bags_path: '~/.chef/data_bags'
     # encrypted_data_bag_secret_key_path: '~/.chef/encrypted_data_bag_secret'
