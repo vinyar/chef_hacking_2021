@@ -8,8 +8,6 @@ describe directory('c:\bob') do
   it { should exist }
 end
 
-
-
 # describe service('W3SVC') do
 #   it { should be_installed }
 #   it { should be_running }
