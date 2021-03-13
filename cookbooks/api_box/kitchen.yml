@@ -14,26 +14,26 @@
 driver:
   name: vagrant
   # pre_create_command
-  # requite_chef_omnibus: '16.10.17'
+  requite_chef_omnibus: '16.10.17'
   # download_url: 'file:////c://local_binaries//chef-client-16.10.17-1-x64.msi'  # hacking on speeding up chef-client installation by using local file in mounted share
-  install_msi_url: file://c:/local_binaries/chef-client-16.10.17-1-x64.msi
+  # install_msi_url: file://c:/local_binaries/chef-client-16.10.17-1-x64.msi       # none of the flags i tried work with local install. Very grrrr.
   # chef_omnibus_install_options: -P chef-workstation   # not using
   customize:
     cpus: 4
     memory: 4096
     clipboard: bidirectional
+    gui: true                    # default is on for most windows boxes
     # natdnshostresolver1: 'on'  # not needed yet
     # natdnsproxy1: 'on'         # not needed yet
-    # gui: true                  # not needed yet
 
-transport:
+transport:                                                                       # can declare per platform as well
   name: winrm
   elevated: true
 
 
 provisioner:
   name: chef_zero
-  # client_rb:                        # ability to add custom values to client.rb
+  # client_rb:                                                                   # ability to add custom values to client.rb
   #   http_proxy: <%= ENV['http_proxy'] %>
   #   https_proxy: <%= ENV['http_proxy'] %>
   #   no_proxy: <%= ENV['no_proxy'] %>
@@ -41,20 +41,21 @@ provisioner:
 
 platforms:
   - name: windows-2016
-  # os_type: windows
+  # os_type: windows                                                              # default if box or platform start with 'win'
     driver_config:
       box: win2016_tas50 ## windows boxes should start with in, for some of the transport magic to just work.
       box_url: https://vagrantcloud.com/tas50/boxes/windows_2016/versions/202010.24.0/providers/virtualbox.box
+      ## If auto download doesn't work for some reason. Download box file with browser and run ' vagrant box add win2016_tas50 <file you downloaded above>'
       synced_folders:
-        - [".", "/vagrant"] #, disabled: true ## https://github.com/test-kitchen/kitchen-vagrant/blob/master/templates/Vagrantfile.erb
-        - ["../../binaries", "/local_binaries"] #, disabled: true ## https://github.com/test-kitchen/kitchen-vagrant/blob/master/templates/Vagrantfile.erb
+        - [".", "/vagrant"] #, disabled: true                                    # just how this thing is being made - https://github.com/test-kitchen/kitchen-vagrant/blob/master/templates/Vagrantfile.erb
+        - ["../../binaries", "/local_binaries"]
+      # customize:
+      #   cpus: 4
+      #   memory: 4096
+      #   clipboard: bidirectional
       # transport:
       #   name: winrm
       #   elevated: true
-      # memory: 4096
-      # shared folder: vagrant: <current folder>
-      # CPU: 2
-      # remote_display - port 5956; auth Null; auth timeout 5000
 
 
 suites:
@@ -62,15 +63,13 @@ suites:
     run_list: #uses policyfile
       - recipe[api_box::default]
       - recipe[api_box::eye_cli]
-    # cookbook_path: '/cookbooks'
-    # data_bags_path: '~/.chef/data_bags'
+    # cookbook_path: '../cookbooks'
+    # data_bags_path: '../data_bags'
     # encrypted_data_bag_secret_key_path: '~/.chef/encrypted_data_bag_secret'
-    # roles_path: '~/.chef/roles'
-    # attributes:
-    #   <cookbook_name>:
-    #     <attribute_name>:
-    #       attribute: "value"
-    #     <another_attribute>:
+    # roles_path: '../roles'
+    # attributes:                                                                # Just because you can, doesn't mean you should.
+    #   cookbook_name:
+    #     attribute_name:
     #       attribute: "value"
     verifier:
       name: inspec
