@@ -56,6 +56,7 @@ end
 execute 'installing eyefinity dev tools' do
   command "#{working_cache}/eyefinity_unzipped/eyefinity build-env install"
   guard_interpreter :powershell_script
-  not_if 'Get-WmiObject -Class Win32_Product | where vendor -eq "Typemock Ltd"'                 # Doesn't seem to work.
+  only_if "(Get-WmiObject -Class Win32_Product | where vendor -eq 'Typemock Ltd') -eq $null"    # forcing truthiness.
+  # only_if powershell_out('Get-WmiObject -Class Win32_Product | where vendor -eq "Typemock Ltd"').stdout.empty?   # also Doesn't seem to work.
   # not_if {reboot_pending?}
 end
