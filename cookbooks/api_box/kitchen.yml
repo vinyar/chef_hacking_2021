@@ -22,7 +22,7 @@ driver:
     cpus: 4
     memory: 4096
     clipboard: bidirectional
-    gui: true                    # default is on for most windows boxes
+    # gui: true                    # wrong flag name, also default is on for most windows boxes
     # natdnshostresolver1: 'on'  # not needed yet
     # natdnsproxy1: 'on'         # not needed yet
 
