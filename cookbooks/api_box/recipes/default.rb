@@ -11,6 +11,11 @@ directory 'making a mark' do
 end
 
 directory 'c:\bob'
+# execute 'also created folder, but harder' do
+#   command 'powershell -command  "& {mkdir -Path c:\bob -Force}"'
+#   action :run
+#   # not_if {}
+# end
 
 windows_feature_powershell 'installing file services' do
   feature_name 'RSAT-File-Services'
@@ -25,7 +30,7 @@ end
 # This really lives in attributes, but showing here for simplicity.
 node.default['api_box']['windows_features']       = %w(Web-Http-Errors IIS-NetFxExtensibility IIS-ASPNET)
 
-include_recipe 'iis'
+include_recipe 'iis::default'
 
 # adding .net 45 support via community IIS cookbook
 include_recipe 'iis::mod_ftp'
@@ -45,20 +50,13 @@ iis_site 'alex-was-here' do
   running true
 end
 
-
-iis_section 'unlocks windows authentication control in web.config' do
-  site 'alex-was-here'
-  section 'system.webServer/security/authentication/windowsAuthentication'
-  action :unlock
-end
-
-node.default['api_box']['dev'] = 'true'
+node.default['api_box']['dev_mode'] = 'true'
 
 iis_section 'unlocks anonymous authentication control in web.config' do
   site 'alex-was-here'
   section 'system.webServer/security/authentication/anonymousAuthentication'
   action :unlock
-  only_if { node['api_box']['dev'] }
+  only_if { node['api_box']['dev_mode'] }
 end
 
 
