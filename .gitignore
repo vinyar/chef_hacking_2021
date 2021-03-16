@@ -23,3 +23,9 @@ Policyfile.lock.json
 
 .idea/
 
+
+## Alex ignore ##
+binaries/
+cookbooks/iis/
+cookbooks/test/
+cookbooks/windows/
