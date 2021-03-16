@@ -15,7 +15,7 @@
 # pre_create_command = <<-EOH
   # looks like kitchen will auto install chef if it's here
   # cp C:\local_binaries\chef-client-16.10.17-1-x64.msi C:\Users\vagrant\AppData\Local\Temp\
-  # or  shell_out('msiexec /i  chef-client-16.10.17-1-x64.msi /quiet')   # or something like this
+  # or  shell_out('msiexec /i  c:\local_binaries\chef-client-16.10.17-1-x64.msi /quiet')   # or something like this
 # EOH
 
 ---
