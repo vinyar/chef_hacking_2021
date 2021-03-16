@@ -6,22 +6,23 @@ Primary focus is on post deployment validation with inspec.
 
 
 # Get started
-install virtualbox from oracle
-install chef-workstation from chef.io
-install vagrant from hashicorp.com (you dont have to reboot)
-Open new command prompt
-validate <vagrant> runs
-validate <kitchen> runs
-clone this repo
-go to .\cookbooks\api_box
-run <kitchen converge>
+install virtualbox from oracle  
+install chef-workstation from chef.io  
+install vagrant from hashicorp.com (you dont have to reboot)  
+Open new command prompt  
+validate ` vagrant ` runs  
+validate ` kitchen ` runs  
+clone this repo  
+go to .\cookbooks\api_box  
+run `kitchen test --destroy always`
 
 
 # Expected result
-kitchen downloads 5.5 gb file
-stands up a vm in virtual box
-runs a simple chef recipe
-fails on mat's api tool because you're not on a vpn
+kitchen downloads 5.5 gb Windows 2016 file  
+stands up a vm in virtual box  
+runs a simple chef recipe (defined in kitchen.yml)  
+runs integration tests with InSpec against the VM  
+deletes the box  
 
-connect to vpn, run <kitchen converge> again
-celebrate success
+# Hack away
+Thanks
