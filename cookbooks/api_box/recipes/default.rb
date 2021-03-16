@@ -24,11 +24,10 @@ windows_feature_powershell 'installing file services' do
   action :install
 end
 
-
 # Using community IIS cookbook to install and configure IIS
 
 # This really lives in attributes, but showing here for simplicity.
-node.default['api_box']['windows_features']       = %w(Web-Http-Errors IIS-NetFxExtensibility IIS-ASPNET)
+node.default['api_box']['windows_features'] = %w(Web-Http-Errors IIS-NetFxExtensibility IIS-ASPNET)
 
 include_recipe 'iis::default'
 
@@ -59,10 +58,9 @@ iis_section 'unlocks anonymous authentication control in web.config' do
   only_if { node['api_box']['dev_mode'] }
 end
 
-
 reboot 'reboot if pending' do
   reason 'Need to reboot when the run completes successfully.'
   delay_mins 0
   action :request_reboot
-  only_if {reboot_pending?}
+  only_if { reboot_pending? }
 end

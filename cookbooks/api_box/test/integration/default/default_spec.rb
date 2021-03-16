@@ -34,7 +34,6 @@ describe iis_site('alex-was-here') do
   its('bindings') { should eq ['ftp *:4321:i_like_cupcakes'] }
 end
 
-
 describe powershell("(Get-WebConfigurationProperty -PSPath \"MACHINE/WEBROOT/APPHOST\" \
                     -filter \"system.applicationHost/sites/siteDefaults/logfile\" \
                     -Name \"directory\").value") do
@@ -49,8 +48,6 @@ end
 #   it { should have_override_mode_effective('Allow') }
 # end
 
-
-
 # Group your tests by controls
 control 'sample group tmp-1.0' do           # A unique ID for this control
   impact 0.7                                # The criticality, if this control fails.
@@ -64,5 +61,4 @@ control 'sample group tmp-1.0' do           # A unique ID for this control
   describe user('vagrant') do
     it { should exist }
   end
-
 end

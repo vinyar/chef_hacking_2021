@@ -2,7 +2,6 @@
 #     https://confluence.vspglobal.com/display/devland/Infrastructure+CLI
 #     https://confluence.vspglobal.com/display/devland/Eyefinity+CLI
 
-
 # on windows this is C:\Users\vagrant\AppData\Local\Temp\kitchen\cache
 working_cache = "#{Chef::Config['file_cache_path']}"
 
@@ -41,22 +40,21 @@ end
 # windows_feature 'NET-Framework-Core' do                                                     # another way to get at it
 # windows_feature_dism 'NET-Framework-Core' do                                                # another way to get at it
 # windows_feature_powershell 'NET-Framework-Core' do
-  # notifies :run, 'reboot[rebooting]', :immediately
-  # guard_interpreter :powershell_script
-  # not_if "(get-windowsfeature NET-Framework-Core).installed.tostring().tolower()"           # can't tell if this is working as intended
+# notifies :run, 'reboot[rebooting]', :immediately
+# guard_interpreter :powershell_script
+# not_if "(get-windowsfeature NET-Framework-Core).installed.tostring().tolower()"           # can't tell if this is working as intended
 # end
 
 # I think this is breaking me on blank box
 # The response content cannot be parsed because the Internet Explorer engine is not available, or Internet Explorer's
 # first-launch configuration is not complete. Specify the UseBasicParsing parameter and try again.
 
-
 # # package.zip gets plopped here: C:\Users\vagrant\AppData\Local\Temp\eyefinity\build-env
 # # manual installation:  .\eyefinity.exe build-env install -p C:\Users\vagrant\AppData\Local\Temp\eyefinity\build-env\package.zip
 execute 'installing eyefinity dev tools' do
   command "#{working_cache}/eyefinity_unzipped/eyefinity build-env install"
   guard_interpreter :powershell_script
-  only_if "(Get-WmiObject -Class Win32_Product | where vendor -eq 'Typemock Ltd') -eq $null"    # forcing truthiness.
+  only_if "(Get-WmiObject -Class Win32_Product | where vendor -eq 'Typemock Ltd') -eq $null" # forcing truthiness.
   # only_if powershell_out('Get-WmiObject -Class Win32_Product | where vendor -eq "Typemock Ltd"').stdout.empty?   # also Doesn't seem to work.
   # not_if {reboot_pending?}
 end
