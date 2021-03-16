@@ -11,10 +11,11 @@
 # EOH
 
 # Hacking to speed up installer of chef-client from local binary
+# Note, in real world, have to update base box every Patch Tuesday
 # pre_create_command = <<-EOH
   # looks like kitchen will auto install chef if it's here
   # cp C:\local_binaries\chef-client-16.10.17-1-x64.msi C:\Users\vagrant\AppData\Local\Temp\
-  # or  msiexec /i  chef-client-16.10.17-1-x64.msi /quiet
+  # or  shell_out('msiexec /i  chef-client-16.10.17-1-x64.msi /quiet')   # or something like this
 # EOH
 
 ---
@@ -22,16 +23,16 @@ driver:
   name: vagrant
   # pre_create_command
   requite_chef_omnibus: '16.10.17'
-  # download_url: 'file:////c://local_binaries//chef-client-16.10.17-1-x64.msi'  # hacking on speeding up chef-client installation by using local file in mounted share
-  # install_msi_url: file://c:/local_binaries/chef-client-16.10.17-1-x64.msi       # none of the flags i tried work with local install. Very grrrr.
-  # chef_omnibus_install_options: -P chef-workstation   # not using
+  # download_url: 'file:////c://local_binaries//chef-client-16.10.17-1-x64.msi'    # hacking on speeding up chef-client installation by using local file in mounted share
+  # install_msi_url: file://c:/local_binaries/chef-client-16.10.17-1-x64.msi       # none of the flags I tried work with local install. Very grrrr.
+  # chef_omnibus_install_options: -P chef-workstation                              # popular option
   customize:
     cpus: 4
     memory: 4096
     clipboard: bidirectional
     # gui: true                    # wrong flag name, also default is on for most windows boxes
-    # natdnshostresolver1: 'on'  # not needed yet
-    # natdnsproxy1: 'on'         # not needed yet
+    # natdnshostresolver1: 'on'    # not needed yet
+    # natdnsproxy1: 'on'           # not needed yet
 
 transport:                                                                       # can declare per platform as well
   name: winrm

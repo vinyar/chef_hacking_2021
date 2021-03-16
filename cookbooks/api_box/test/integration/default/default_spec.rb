@@ -1,6 +1,5 @@
+# https://inspec.io/docs/reference/resources/
 
-
-describe # https://inspec.io/docs/reference/resources/directory/
 describe directory('c:\alex\was\here') do
   it { should exist }
 end
