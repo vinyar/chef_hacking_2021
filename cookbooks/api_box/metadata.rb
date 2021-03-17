@@ -1,6 +1,6 @@
 name 'api_box'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
+maintainer 'Alex Vinyar'
+maintainer_email 'not_real@email.com'
 license 'All Rights Reserved'
 description 'Installs/Configures api_box'
 version '0.2.0'
